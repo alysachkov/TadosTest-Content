@@ -1,7 +1,9 @@
-﻿namespace Content.WebApi.Controllers.Content.Actions.Get
+﻿using Api.Requests.Abstractions;
+
+namespace Content.WebApi.Controllers.Content.Actions.Get
 {
-    public record ContentGetRequest
+    public record ContentGetRequest : IRequest<ContentGetResponse>
     {
-        public long Id { get; set; }
+        public long Id { get; init; }
     }
 }

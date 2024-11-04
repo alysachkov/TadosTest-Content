@@ -1,7 +1,9 @@
 ﻿namespace Content.WebApi.Controllers.City.Actions.Get
 {
-    public record CityGetRequest
+    using Api.Requests.Abstractions;
+
+    public record CityGetRequest : IRequest<CityGetResponse>
     {
-        public long Id { get; set; }
+        public long Id { get; init; }
     }
 }

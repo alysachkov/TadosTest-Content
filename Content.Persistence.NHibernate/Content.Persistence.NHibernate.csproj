@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Content.Domain\Content.Domain.csproj" />
+    <ProjectReference Include="..\NHibernate.Infrastructure.AutoMapping\NHibernate.Infrastructure.AutoMapping.csproj" />
+    <ProjectReference Include="..\NHibernate.Infrastructure\NHibernate.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

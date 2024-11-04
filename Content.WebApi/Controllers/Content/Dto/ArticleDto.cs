@@ -1,7 +1,7 @@
 ﻿namespace Content.WebApi.Controllers.Content.Dto
 {
-    public class ArticleDto : ContentDto
+    public record ArticleDto : ContentDto
     {
-        public string Text { get; set; }
+        public string Text { get; init; }
     }
 }

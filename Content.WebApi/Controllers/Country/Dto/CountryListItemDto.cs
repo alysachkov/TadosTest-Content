@@ -1,9 +1,9 @@
 ﻿namespace Content.WebApi.Controllers.Country.Dto
 {
-    public class CountryListItemDto
+    public record CountryListItemDto
     {
-        public long Id { get; set; }
+        public long Id { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 }

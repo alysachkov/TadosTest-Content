@@ -1,6 +1,8 @@
-﻿namespace Content.WebApi.Controllers.User.Actions.Create
+﻿using Api.Requests.Abstractions;
+
+namespace Content.WebApi.Controllers.User.Actions.Create
 {
-    public record UserCreateRequest
+    public record UserCreateRequest : IRequest<UserCreateResponse>
     {
         public string Email { get; set; }
 

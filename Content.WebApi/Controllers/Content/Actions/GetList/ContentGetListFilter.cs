@@ -1,6 +1,7 @@
 ﻿namespace Content.WebApi.Controllers.Content.Actions.GetList
 {
-    using Dto;
+    using Domain.Enums;
+    using Common.DataAnnotations;
 
     public record ContentGetListFilter
     {

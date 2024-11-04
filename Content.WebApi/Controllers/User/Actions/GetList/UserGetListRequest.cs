@@ -1,8 +1,9 @@
 ﻿namespace Content.WebApi.Controllers.User.Actions.GetList
 {
-    using Infrastructure.Pagination;
+    using Api.Requests.Abstractions;
+    using Pagination;
 
-    public record UserGetListRequest
+    public record UserGetListRequest : IRequest<UserGetListResponse>
     {
         // Если объект Pagination не указан, то отдаётся весь список
         public Pagination Pagination { get; set; }

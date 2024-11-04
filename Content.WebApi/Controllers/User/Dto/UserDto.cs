@@ -9,6 +9,6 @@
 
         public string Email { get; set; }
 
-        public CityDto City { get; set; }
+        public CityDto CityDto { get; set; }
     }
 }

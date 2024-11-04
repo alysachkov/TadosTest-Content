@@ -1,7 +1,7 @@
 ﻿namespace Content.WebApi.Controllers.Content.Dto
 {
-    public class VideoDto : ContentDto
+    public record VideoDto : ContentDto
     {
-        public string Url { get; set; }
+        public string Url { get; init; }
     }
 }

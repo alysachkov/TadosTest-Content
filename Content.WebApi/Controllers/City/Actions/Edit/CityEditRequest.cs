@@ -1,11 +1,15 @@
 ﻿namespace Content.WebApi.Controllers.City.Actions.Edit
 {
-    public record CityEditRequest
+    using Api.Requests.Abstractions;
+    using System.ComponentModel.DataAnnotations;
+
+    public record CityEditRequest: IRequest
     {
-        public long Id { get; set; }
+        [Required]
+        public long Id { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public long CountryId { get; set; }
+        public long CountryId { get; init; }
     }
 }

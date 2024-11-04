@@ -1,7 +1,8 @@
 ﻿namespace Content.WebApi.Controllers.Content.Actions.GetList
 {
+    using Api.Requests.Abstractions;
     using Dto;
-    using Infrastructure.Pagination;
+    using Pagination;
 
-    public record ContentGetListResponse(PaginatedList<ContentDto> Page);
+    public record ContentGetListResponse(PaginatedList<ContentListItemDto> Page) : IResponse;
 }
