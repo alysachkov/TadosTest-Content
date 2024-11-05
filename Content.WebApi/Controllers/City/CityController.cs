@@ -36,14 +36,14 @@
                 .For<CityCreateResponse>()
                 .With(request);
 
-        [HttpPatch]
+        [HttpPost]
         [Route("edit")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public Task<IActionResult> Edit(CityEditRequest request) =>
             this.RequestAsync(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
         [ProducesResponseType(typeof(CityGetResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,7 +52,7 @@
                 .For<CityGetResponse>()
                 .With(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("getList")]
         [ProducesResponseType(typeof(CityGetListResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

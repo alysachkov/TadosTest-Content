@@ -38,14 +38,14 @@
                 .For<UserCreateResponse>()
                 .With(request);
 
-        [HttpPatch]
+        [HttpPost]
         [Route("edit")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public Task<IActionResult> Edit(UserEditRequest request) =>
             this.RequestAsync(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
         [ProducesResponseType(typeof(UserGetResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -54,7 +54,7 @@
                 .For<UserGetResponse>()
                 .With(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("getList")]
         [ProducesResponseType(typeof(UserGetListResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

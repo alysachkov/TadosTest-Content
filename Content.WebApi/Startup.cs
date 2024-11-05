@@ -72,7 +72,7 @@ namespace Content.WebApi
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
-                    endpoints.MapFallbackToController("Index", "Home");
+                    //endpoints.MapFallbackToController("Index", "Home");
                 });
         }
     }

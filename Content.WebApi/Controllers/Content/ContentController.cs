@@ -37,7 +37,7 @@
                 .For<ContentCreateHierarchicResponse>()
                 .With(request);
 
-        [HttpPatch]
+        [HttpPost]
         [Route("edit")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,7 +51,7 @@
         public Task<IActionResult> Rate(ContentRateRequest request)
             => this.RequestAsync(request);
         
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
         [ProducesResponseType(typeof(ContentGetResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,7 +60,7 @@
                 .For<ContentGetResponse>()
                 .With(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("getList")]
         [ProducesResponseType(typeof(ContentGetListResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

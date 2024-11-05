@@ -32,7 +32,8 @@
         public virtual User Creator { get; init; }
 
         public virtual IEnumerable<Rate> Ratings => _ratings;
-        public virtual double AverageRating => _ratings.AsQueryable().Average(x => x.Rating);
+        public virtual double AverageRating =>
+            _ratings?.Any() == true ? _ratings.AsQueryable().Average(x => x.Rating) : 0;
 
 
         public virtual void SetName(string name)

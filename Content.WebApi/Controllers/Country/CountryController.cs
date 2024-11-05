@@ -37,14 +37,14 @@
                 .For<CountryCreateResponse>()
                 .With(request);
 
-        [HttpPatch]
+        [HttpPost]
         [Route("edit")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public Task<IActionResult> Edit(CountryEditRequest request) =>
             this.RequestAsync(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("get")]
         [ProducesResponseType(typeof(CountryGetResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -53,7 +53,7 @@
                 .For<CountryGetResponse>()
                 .With(request);
 
-        [HttpGet]
+        [HttpPost]
         [Route("getList")]
         [ProducesResponseType(typeof(CountryGetListResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
