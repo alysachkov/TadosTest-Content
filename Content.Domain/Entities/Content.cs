@@ -15,15 +15,9 @@
 
         protected Content(ContentCategory category, string name, User creator)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
-
-            if (creator == null)
-                throw new ArgumentNullException(nameof(creator));
-
+            Creator = creator ?? throw new ArgumentNullException(nameof(creator));
             Category = category;
-            Name = name;
-            Creator = creator;
+            SetName(name);
         }
 
         public virtual long Id { get; init; }

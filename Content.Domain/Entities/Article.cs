@@ -11,10 +11,7 @@
         protected internal Article(string name, User creator, string text)
             : base(ContentCategory.Article, name, creator)
         {
-            if (string.IsNullOrWhiteSpace(text))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(text));
-
-            Text = text;
+            SetText(text);
         }
 
         public virtual string Text { get; protected set; }

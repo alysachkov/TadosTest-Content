@@ -10,10 +10,7 @@
 
         public Country(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
-
-            Name = name;
+            SetName(name);
         }
         public virtual long Id { get; init; }
         public virtual string Name { get; protected set; }

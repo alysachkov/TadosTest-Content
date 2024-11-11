@@ -10,14 +10,8 @@
 
         public City(string name, Country country)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
-
-            if (country == null)
-                throw new ArgumentNullException(nameof(country));
-
-            Name = name;
-            Country = country;
+            SetName(name);
+            SetCountry(country);
         }
         public virtual long Id { get; init; }
         public virtual string Name { get; protected set; }
@@ -32,10 +26,7 @@
         }
         public virtual void SetCountry(Country country)
         {
-            if (country == null)
-                throw new ArgumentNullException(nameof(country));
-
-            Country = country;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
         }
     }
 }

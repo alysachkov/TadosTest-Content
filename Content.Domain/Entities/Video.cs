@@ -11,20 +11,14 @@
         protected internal Video(string name, User creator, string url)
             : base(ContentCategory.Video, name, creator)
         {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(url));
-
-            Url = url;
+            SetUrl(url);
         }
 
         public virtual string Url { get; protected set; }
 
         public virtual void SetUrl(string url)
         {
-            if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(url));
-
-            Url = url;
+            Url = url ?? throw new ArgumentNullException(nameof(url));
         }
     }
 }

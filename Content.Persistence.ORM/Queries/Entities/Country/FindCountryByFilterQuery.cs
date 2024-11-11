@@ -31,10 +31,10 @@
             if (!string.IsNullOrWhiteSpace(criterion.Search))
                 query = query.Where(x => x.Name.Contains(criterion.Search));
 
+            query = query.OrderBy(x => x.Name);
+
             if (criterion.Pagination != null)
                 query = query.Skip(criterion.Pagination.Offset).Take(criterion.Pagination.Count);
-
-            query = query.OrderBy(x => x.Name);
 
             return ToAsync(query).ToListAsync(cancellationToken);
         }
