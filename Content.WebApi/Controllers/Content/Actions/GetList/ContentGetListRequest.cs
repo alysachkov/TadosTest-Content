@@ -1,14 +1,16 @@
 ﻿namespace Content.WebApi.Controllers.Content.Actions.GetList
 {
     using Api.Requests.Abstractions;
+    using Common.DataAnnotations;
     using Pagination;
 
 
     public record ContentGetListRequest : IRequest<ContentGetListResponse>
     {
-        // Если объект Pagination не указан, то отдаётся весь список
+        [Nullable]
         public Pagination Pagination { get; set; }
 
+        [Nullable]
         public ContentGetListFilter Filter { get; set; }
     }
 }

@@ -1,25 +1,23 @@
-﻿namespace Content.Domain.Entities
+﻿namespace Content.Domain.ValueObjects
 {
     using global::Domain.Abstractions;
     using System;
-    using System.Reflection.Metadata;
-    using System.Xml.Linq;
+    using Content.Domain.Entities;
 
-    public class ImageUrl : IEntity
+
+    public class ImageUrl : IValueObjectWithId
     {
         [Obsolete("Only for reflection", true)]
         public ImageUrl() { }
 
-        public ImageUrl(string url, Gallery gallery)
+        public ImageUrl(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(url));
 
             Url = url;
-            Gallery = gallery ?? throw new ArgumentNullException(nameof(gallery));
         }
         public virtual long Id { get; init; }
         public virtual string Url { get; init; }
-        public virtual Gallery Gallery { get; init; }
     }
 }

@@ -28,18 +28,18 @@
 
         public async Task<ContentGetListResponse> ExecuteAsync(ContentGetListRequest request)
         {
-            List<Content> content = await _asyncQueryBuilder
-                .For<List<Content>>()
+            var (contentList, totalCount) = await _asyncQueryBuilder
+                .For<(List<Content>, int)>()
                 .WithAsync(new FindContentByFilter(
-                    request.Pagination ?? null,
+                    request.Pagination,
                     request.Filter?.Category,
                     request.Filter?.UserId,
                     request.Filter?.Search));
 
             return new ContentGetListResponse(
                 Page: new PaginatedList<ContentListItemDto>(
-                    content.Count,
-                    _mapper.Map<List<ContentListItemDto>>(content))
+                    totalCount,
+                    _mapper.Map<List<ContentListItemDto>>(contentList))
                 );
         }
     }

@@ -13,7 +13,7 @@
 
 
     public class FindContentByFilterQuery :
-        LinqAsyncQueryBase<Content, FindContentByFilter, List<Content>>
+        LinqAsyncQueryBase<Content, FindContentByFilter, (List<Content>, int)>
     {
         public FindContentByFilterQuery(
             ILinqProvider linqProvider,
@@ -22,7 +22,7 @@
         }
 
 
-        public override Task<List<Content>> AskAsync(
+        public override async Task<(List<Content>, int)> AskAsync(
             FindContentByFilter criterion,
             CancellationToken cancellationToken = default)
         {
@@ -43,7 +43,16 @@
                                 (x as Video).Url.Contains(criterion.Search));
             }
 
-            return ToAsync(query).ToListAsync(cancellationToken);
+            var totalCount = await ToAsync(query).CountAsync(cancellationToken);
+
+            query = query.OrderBy(x => x.Name);
+
+            if (criterion.Pagination != null)
+                query = query.Skip(criterion.Pagination.Offset).Take(criterion.Pagination.Count);
+
+            var queryList = await ToAsync(query).ToListAsync(cancellationToken);
+
+            return (queryList, totalCount);
         }
     }
 }

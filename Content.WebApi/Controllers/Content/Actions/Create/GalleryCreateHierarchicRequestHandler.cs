@@ -11,8 +11,9 @@
         private readonly IGalleryService _galleryService;
 
 
-
-        public GalleryCreateHierarchicRequestHandler(IAsyncQueryBuilder asyncQueryBuilder, IGalleryService galleryService)
+        public GalleryCreateHierarchicRequestHandler(
+            IAsyncQueryBuilder asyncQueryBuilder,
+            IGalleryService galleryService)
             : base(asyncQueryBuilder)
         {
             _galleryService = galleryService ?? throw new ArgumentNullException(nameof(galleryService));

@@ -3,8 +3,6 @@
     using AutoMapper;
     using Domain.Entities;
     using Dto;
-    using NHibernate.Mapping;
-    using Pagination;
 
     public class ContentProfile : Profile
     {
