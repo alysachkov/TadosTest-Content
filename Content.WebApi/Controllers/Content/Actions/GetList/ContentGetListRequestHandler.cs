@@ -8,6 +8,8 @@
     using Domain.Criteria;
     using Domain.Entities;
     using Dto;
+    using global::Content.WebApi.Controllers.Country.Actions.GetList;
+    using global::Content.WebApi.Controllers.Country.Dto;
     using Pagination;
     using Queries.Abstractions;
 
@@ -28,8 +30,8 @@
 
         public async Task<ContentGetListResponse> ExecuteAsync(ContentGetListRequest request)
         {
-            var (contentList, totalCount) = await _asyncQueryBuilder
-                .For<(List<Content>, int)>()
+            PaginatedList<Content> contents = await _asyncQueryBuilder
+                .For<PaginatedList<Content>>()
                 .WithAsync(new FindContentByFilter(
                     request.Pagination,
                     request.Filter?.Category,
@@ -38,8 +40,8 @@
 
             return new ContentGetListResponse(
                 Page: new PaginatedList<ContentListItemDto>(
-                    totalCount,
-                    _mapper.Map<List<ContentListItemDto>>(contentList))
+                    contents.TotalCount,
+                    _mapper.Map<List<ContentListItemDto>>(contents.Items))
                 );
         }
     }

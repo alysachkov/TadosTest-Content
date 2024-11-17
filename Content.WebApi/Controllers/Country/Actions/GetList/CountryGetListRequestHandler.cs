@@ -28,16 +28,16 @@
 
         public async Task<CountryGetListResponse> ExecuteAsync(CountryGetListRequest request)
         {
-            List<Country> countries = await _asyncQueryBuilder
-                .For<List<Country>>()
+            PaginatedList<Country> countries = await _asyncQueryBuilder
+                .For<PaginatedList<Country>>()
                 .WithAsync(new FindCountryByFilter(
-                    request.Pagination ?? null,
+                    request.Pagination,
                     request.Filter?.Search));
 
             return new CountryGetListResponse(
                 Page: new PaginatedList<CountryListItemDto>(
-                    countries.Count,
-                    _mapper.Map<List<CountryListItemDto>>(countries))
+                    countries.TotalCount,
+                    _mapper.Map<List<CountryListItemDto>>(countries.Items))
                 );
         }
     }

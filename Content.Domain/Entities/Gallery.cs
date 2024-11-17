@@ -17,6 +17,7 @@
             : base(ContentCategory.Gallery, name, creator)
         {
             SetCoverUrl(coverUrl);
+            SetImagesUrls(imagesUrls);
         }
 
         public virtual string CoverUrl { get; protected set; }

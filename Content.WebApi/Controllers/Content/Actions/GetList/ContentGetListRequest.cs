@@ -7,10 +7,8 @@
 
     public record ContentGetListRequest : IRequest<ContentGetListResponse>
     {
-        [Nullable]
         public Pagination Pagination { get; set; }
 
-        [Nullable]
         public ContentGetListFilter Filter { get; set; }
     }
 }

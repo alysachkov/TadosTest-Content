@@ -31,16 +31,16 @@
 
         public async Task<UserGetListResponse> ExecuteAsync(UserGetListRequest request)
         {
-            List<User> users = await _asyncQueryBuilder
-                .For<List<User>>()
+            PaginatedList<User> users = await _asyncQueryBuilder
+                .For<PaginatedList<User>>()
                 .WithAsync(new FindUserByFilter(
                     request.Pagination ?? null,
                     request.Filter?.Search));
 
             return new UserGetListResponse(
                 Page: new PaginatedList<UserListItemDto>(
-                    users.Count,
-                    _mapper.Map<List<UserListItemDto>>(users))
+                    users.TotalCount,
+                    _mapper.Map<List<UserListItemDto>>(users.Items))
                 );
         }
     }

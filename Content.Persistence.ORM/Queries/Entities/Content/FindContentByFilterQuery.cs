@@ -10,10 +10,10 @@
     using Domain.Entities;
     using Linq.AsyncQueryable.Abstractions.Factories;
     using Linq.Providers.Abstractions;
-
+    using Pagination;
 
     public class FindContentByFilterQuery :
-        LinqAsyncQueryBase<Content, FindContentByFilter, (List<Content>, int)>
+        LinqAsyncQueryBase<Content, FindContentByFilter, PaginatedList<Content>>
     {
         public FindContentByFilterQuery(
             ILinqProvider linqProvider,
@@ -22,7 +22,7 @@
         }
 
 
-        public override async Task<(List<Content>, int)> AskAsync(
+        public override async Task<PaginatedList<Content>> AskAsync(
             FindContentByFilter criterion,
             CancellationToken cancellationToken = default)
         {
@@ -52,7 +52,7 @@
 
             var queryList = await ToAsync(query).ToListAsync(cancellationToken);
 
-            return (queryList, totalCount);
+            return new PaginatedList<Content>(totalCount, queryList);
         }
     }
 }

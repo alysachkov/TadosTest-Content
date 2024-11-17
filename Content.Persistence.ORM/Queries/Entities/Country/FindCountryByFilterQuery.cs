@@ -10,10 +10,10 @@
     using Domain.Entities;
     using Linq.AsyncQueryable.Abstractions.Factories;
     using Linq.Providers.Abstractions;
-
+    using Pagination;
 
     public class FindCountryByFilterQuery :
-        LinqAsyncQueryBase<Country, FindCountryByFilter, List<Country>>
+        LinqAsyncQueryBase<Country, FindCountryByFilter, PaginatedList<Country>>
     {
         public FindCountryByFilterQuery(
             ILinqProvider linqProvider,
@@ -22,7 +22,7 @@
         }
 
 
-        public override Task<List<Country>> AskAsync(
+        public override async Task<PaginatedList<Country>> AskAsync(
             FindCountryByFilter criterion,
             CancellationToken cancellationToken = default)
         {
@@ -31,12 +31,16 @@
             if (!string.IsNullOrWhiteSpace(criterion.Search))
                 query = query.Where(x => x.Name.Contains(criterion.Search));
 
+            var totalCount = await ToAsync(query).CountAsync(cancellationToken);
+
             query = query.OrderBy(x => x.Name);
 
             if (criterion.Pagination != null)
                 query = query.Skip(criterion.Pagination.Offset).Take(criterion.Pagination.Count);
 
-            return ToAsync(query).ToListAsync(cancellationToken);
+            var queryList = await ToAsync(query).ToListAsync(cancellationToken);
+
+            return new PaginatedList<Country>(totalCount, queryList);
         }
     }
 }

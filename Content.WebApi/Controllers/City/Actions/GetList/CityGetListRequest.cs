@@ -6,7 +6,6 @@
 
     public record CityGetListRequest : IRequest<CityGetListResponse>
     {
-        // Если объект Pagination не указан, то отдаётся весь список
         public Pagination Pagination { get; set; }
         
         public CityGetListFilter Filter { get; set; }

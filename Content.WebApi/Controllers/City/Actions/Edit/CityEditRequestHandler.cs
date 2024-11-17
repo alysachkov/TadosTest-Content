@@ -27,19 +27,19 @@
             City city = await _asyncQueryBuilder.FindByIdAsync<City>(request.Id)
                 ?? throw new ObjectNotFoundException(request.Id, nameof(city));
 
-            Country country = await _asyncQueryBuilder.FindByIdAsync<Country>(request.CountryId)
-                ?? throw new ObjectNotFoundException(request.CountryId, nameof(country));
+            long countryId = request.CountryId ?? city.Country.Id;
+            string name = !string.IsNullOrWhiteSpace(request.Name) ? request.Name : city.Name;
+
+            Country country = await _asyncQueryBuilder.FindByIdAsync<Country>(countryId);
 
             int existingCount = await _asyncQueryBuilder
                 .For<int>()
-                .WithAsync(new FindCityCountByNameAndCountry(request.Name, country));
+                .WithAsync(new FindCityCountByNameAndCountry(name, country));
 
             if (existingCount != 0)
                 throw new NameAlreadyExistsException();
 
-            if (!string.IsNullOrWhiteSpace(request.Name))
-                city.SetName(request.Name);
-
+            city.SetName(name);
             city.SetCountry(country);
         }
     }

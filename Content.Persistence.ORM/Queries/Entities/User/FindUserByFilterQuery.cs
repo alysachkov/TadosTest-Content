@@ -9,10 +9,10 @@
     using Domain.Entities;
     using Linq.AsyncQueryable.Abstractions.Factories;
     using Linq.Providers.Abstractions;
-
+    using Pagination;
 
     public class FindUserByFilterQuery :
-        LinqAsyncQueryBase<User, FindUserByFilter, List<User>>
+        LinqAsyncQueryBase<User, FindUserByFilter, PaginatedList<User>>
     {
         public FindUserByFilterQuery(
             ILinqProvider linqProvider,
@@ -21,7 +21,7 @@
         }
 
 
-        public override Task<List<User>> AskAsync(
+        public override async Task<PaginatedList<User>> AskAsync(
             FindUserByFilter criterion,
             CancellationToken cancellationToken = default)
         {
@@ -30,12 +30,16 @@
             if (!string.IsNullOrWhiteSpace(criterion.Search))
                 query = query.Where(x => x.Email.Contains(criterion.Search));
 
+            var totalCount = await ToAsync(query).CountAsync(cancellationToken);
+
             query = query.OrderBy(x => x.Email);
 
             if (criterion.Pagination != null)
                 query = query.Skip(criterion.Pagination.Offset).Take(criterion.Pagination.Count);
 
-            return ToAsync(query).ToListAsync(cancellationToken);
+            var queryList = await ToAsync(query).ToListAsync(cancellationToken);
+
+            return new PaginatedList<User>(totalCount, queryList);
         }
     }
 }

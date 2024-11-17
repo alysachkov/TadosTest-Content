@@ -10,10 +10,10 @@
     using Domain.Entities;
     using Linq.AsyncQueryable.Abstractions.Factories;
     using Linq.Providers.Abstractions;
-
+    using Pagination;
 
     public class FindCityByFilterQuery :
-        LinqAsyncQueryBase<City, FindCityByFilter, List<City>>
+        LinqAsyncQueryBase<City, FindCityByFilter, PaginatedList<City>>
     {
         public FindCityByFilterQuery(
             ILinqProvider linqProvider,
@@ -22,7 +22,7 @@
         }
 
 
-        public override Task<List<City>> AskAsync(
+        public override async Task<PaginatedList<City>> AskAsync(
             FindCityByFilter criterion,
             CancellationToken cancellationToken = default)
         {
@@ -34,12 +34,16 @@
             if (!string.IsNullOrWhiteSpace(criterion.Search))
                 query = query.Where(x => x.Name.Contains(criterion.Search));
 
+            var totalCount = await ToAsync(query).CountAsync(cancellationToken);
+
             query = query.OrderBy(x => x.Name);
 
             if (criterion.Pagination != null)
                 query = query.Skip(criterion.Pagination.Offset).Take(criterion.Pagination.Count);
 
-            return ToAsync(query).ToListAsync(cancellationToken);
+            var queryList = await ToAsync(query).ToListAsync(cancellationToken);
+
+            return new PaginatedList<City>(totalCount, queryList);
         }
     }
 }

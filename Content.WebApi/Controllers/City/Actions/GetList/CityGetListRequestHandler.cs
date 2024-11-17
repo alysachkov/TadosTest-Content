@@ -28,17 +28,17 @@
 
         public async Task<CityGetListResponse> ExecuteAsync(CityGetListRequest request)
         {
-            List<City> cities = await _asyncQueryBuilder
-                .For<List<City>>()
+            PaginatedList<City> cities = await _asyncQueryBuilder
+                .For<PaginatedList<City>>()
                 .WithAsync(new FindCityByFilter(
-                    request.Pagination ?? null,
+                    request.Pagination,
                     request.Filter?.CountryId,
                     request.Filter?.Search));
 
             return new CityGetListResponse(
                 Page: new PaginatedList<CityListItemDto>(
-                    cities.Count,
-                    _mapper.Map<List<CityListItemDto>>(cities))
+                    cities.TotalCount,
+                    _mapper.Map<List<CityListItemDto>>(cities.Items))
                 );
         }
     }

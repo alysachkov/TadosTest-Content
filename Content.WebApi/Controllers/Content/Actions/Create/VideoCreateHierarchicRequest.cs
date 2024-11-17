@@ -8,6 +8,7 @@
     public record VideoCreateHierarchicRequest : ContentCreateHierarchicRequest
     {
         [Required]
+        [Url]
         public string Url { get; init; }
     }
 }
