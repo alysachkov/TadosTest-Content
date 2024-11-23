@@ -28,7 +28,7 @@
                 ?? throw new ObjectNotFoundException(request.Id, nameof(user));
 
             City city = await _asyncQueryBuilder.FindByIdAsync<City>(request.CityId)
-                ?? throw new ObjectNotFoundException(request.Id, nameof(city));
+                ?? throw new ObjectNotFoundException(request.CityId, nameof(city));
 
             user.SetCity(city);
         }

@@ -27,8 +27,8 @@
             City city = await _asyncQueryBuilder.FindByIdAsync<City>(request.Id)
                 ?? throw new ObjectNotFoundException(request.Id, nameof(city));
 
-            long countryId = request.CountryId ?? city.Country.Id;
-            string name = !string.IsNullOrWhiteSpace(request.Name) ? request.Name : city.Name;
+            var countryId = request.CountryId ?? city.Country.Id;
+            var name = !string.IsNullOrWhiteSpace(request.Name) ? request.Name : city.Name;
 
             Country country = await _asyncQueryBuilder.FindByIdAsync<Country>(countryId);
 
